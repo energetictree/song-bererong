@@ -5,7 +5,7 @@
 
 **Song Bererong** is a multiplayer card game with dramatic reveal animations, real-time gameplay, and a sacred battle theme. Play with 2-10 friends online and experience the suspense of the card reveal!
 
-![Song Bererong Banner](./screenshots/banner.png)
+![Song Bererong Home](./screenshots/01-home.png)
 
 ## 🎮 Features
 
@@ -22,22 +22,22 @@
 ## 🖼️ Screenshots
 
 ### Home Screen
-![Home](./screenshots/home.png)
+![Home](./screenshots/01-home.png)
 
 ### Create Room
-![Create Room](./screenshots/create-room.png)
-
-### Join Room with Online Room List
-![Join Room](./screenshots/join-room.png)
+![Create Room](./screenshots/02-create-room.png)
 
 ### Game Room - Waiting
-![Game Waiting](./screenshots/game-waiting.png)
+![Game Waiting](./screenshots/03-game-waiting.png)
 
-### Dramatic Card Reveal
-![Card Reveal](./screenshots/card-reveal.gif)
+### Join Room with Online Room List
+![Join Room](./screenshots/04-join-room.png)
 
-### Winner Announcement
-![Winner](./screenshots/winner.png)
+### Join Room - Filled Form
+![Join Room Filled](./screenshots/05-join-room-filled.png)
+
+### Scoreboard
+![Scoreboard](./screenshots/06-scoreboard.png)
 
 ## 🏗️ Tech Stack
 
