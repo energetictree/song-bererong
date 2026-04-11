@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # Backend server with hot reload
+  server:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run server"
+    ports:
+      - "3003:3001"
+    volumes:
+      # Link local folder for fast reload
+      - ./app:/app
+      # Persist node_modules in container (don't overwrite with empty host folder)
+      - /app/node_modules
+      # Persist data folder for scoreboard
+      - ./app/data:/app/data
+    environment:
+      - PORT=3001
+      - NODE_ENV=development
+    restart: unless-stopped
+
+  # Frontend Vite dev server with HMR
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5175:5173"
+    volumes:
+      # Link local folder for fast reload
+      - ./app:/app
+      # Persist node_modules in container
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    depends_on:
+      - server

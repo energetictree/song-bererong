@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#d97706" />
+    <meta name="background-color" content="#1a0f00" />
+    <meta name="description" content="Song Bererong - The Sacred Card Battle. A Barong-themed multiplayer card game with traditional Balinese atmosphere." />
+    <meta name="keywords" content="card game, multiplayer, Barong, Balinese, online game, Song Bererong" />
+    <meta name="author" content="Song Bererong" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Song Bererong" />
+    <meta name="application-name" content="Song Bererong" />
+    <meta name="msapplication-TileColor" content="#d97706" />
+    <meta name="msapplication-config" content="./browserconfig.xml" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Song Bererong - The Sacred Card Battle" />
+    <meta property="og:description" content="Experience the sacred card battle with traditional Balinese Barong theme. Play with friends online!" />
+    <meta property="og:image" content="./icon-512.png" />
+    <meta property="og:url" content="https://songbererong.com" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Song Bererong - The Sacred Card Battle" />
+    <meta name="twitter:description" content="Experience the sacred card battle with traditional Balinese Barong theme. Play with friends online!" />
+    <meta name="twitter:image" content="./icon-512.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./icon-72.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./icon-72.png" />
+    <link rel="shortcut icon" href="./icon-72.png" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="72x72" href="./icon-72.png" />
+    <link rel="apple-touch-icon" sizes="96x96" href="./icon-96.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="./icon-128.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="./icon-144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./icon-152.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="./icon-512.png" />
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="./manifest.json" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>Song Bererong - The Sacred Card Battle</title>
+    
+    <!-- PWA Install Prompt Styles -->
+    <style>
+      #pwa-install-prompt {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #d97706, #b45309);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        display: none;
+        align-items: center;
+        gap: 16px;
+        z-index: 9999;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #pwa-install-prompt.show {
+        display: flex;
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+      }
+      #pwa-install-prompt button {
+        background: white;
+        color: #d97706;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #pwa-install-prompt .close {
+        background: transparent;
+        color: white;
+        padding: 4px;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-Gdrqy7Ok.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Lt_vsvP5.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- PWA Install Prompt -->
+    <div id="pwa-install-prompt">
+      <span>📱 Install Song Bererong for the best experience!</span>
+      <button id="pwa-install-btn">Install</button>
+      <button class="close" id="pwa-dismiss-btn">✕</button>
+    </div>
+    
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('[PWA] Service Worker registered:', registration.scope);
+            })
+            .catch((error) => {
+              console.error('[PWA] Service Worker registration failed:', error);
+            });
+        });
+      }
+      
+      // PWA Install Prompt
+      let deferredPrompt;
+      const installPrompt = document.getElementById('pwa-install-prompt');
+      const installBtn = document.getElementById('pwa-install-btn');
+      const dismissBtn = document.getElementById('pwa-dismiss-btn');
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installPrompt.classList.add('show');
+      });
+      
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('[PWA] User accepted install');
+          }
+          deferredPrompt = null;
+          installPrompt.classList.remove('show');
+        }
+      });
+      
+      dismissBtn.addEventListener('click', () => {
+        installPrompt.classList.remove('show');
+        localStorage.setItem('pwa-prompt-dismissed', Date.now().toString());
+      });
+      
+      // Hide prompt if already installed
+      window.addEventListener('appinstalled', () => {
+        installPrompt.classList.remove('show');
+        deferredPrompt = null;
+        console.log('[PWA] App installed');
+      });
+    </script>
+  </body>
+</html>
